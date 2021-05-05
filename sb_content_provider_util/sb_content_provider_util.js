@@ -63,6 +63,24 @@ createContent = function (data, headers, cb) {
   sendRequest(options, cb)
 }
 
+createMeeting = function (data, headers, cb) {
+  var url = configUtil.getConfig('CONTENT_SERVICE_BASE_URL') + configUtil.getConfig('CREATE_MEETING_URI')
+  var options = getHttpOptions(url, data, 'POST', false, headers)
+  sendRequest(options, cb)
+}
+
+getMeeting = function (meetingId, headers, cb) {
+  var url = configUtil.getConfig('CONTENT_SERVICE_BASE_URL') + configUtil.getConfig('GET_MEETING_URI') + '/' + meetingId
+  var options = getHttpOptions(url, null, 'GET', false, headers)
+  postRequest(options, cb)
+}
+
+generateSignature = function (data, headers, cb) {
+  var url = configUtil.getConfig('CONTENT_SERVICE_BASE_URL') + configUtil.getConfig('GENERATE_SIGNATURE_URI')
+  var options = getHttpOptions(url, data, 'POST', false, headers)
+  sendRequest(options, cb)
+}
+
 searchContent = function (data, headers, cb) {
   var url = configUtil.getConfig('CONTENT_REPO_BASE_URL') + configUtil.getConfig('SEARCH_CONTENT_URI')
   var options = getHttpOptions(url, data, 'POST', false, headers)
@@ -502,6 +520,9 @@ function postRequest(http_options, cb) {
 
 module.exports = {
   createContent: createContent,
+  getMeeting: getMeeting,
+  createMeeting: createMeeting,
+  generateSignature: generateSignature,
   searchContent: searchContent,
   compositeSearch: compositeSearch,
   updateContent: updateContent,
