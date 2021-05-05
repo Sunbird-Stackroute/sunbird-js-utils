@@ -426,6 +426,14 @@ copyContent = function (data, content_id, headers, cb) {
   sendRequest(options, cb)
 }
 
+copyContentWithQuery = function (data, query, content_id, headers, cb) {
+  var url = configUtil.getConfig('CONTENT_SERVICE_BASE_URL') + configUtil.getConfig('COPY_CONTENT_URI') + '/' + content_id
+  var options = getHttpOptions(url, data, 'POST', false, headers)
+  options.qs = query;
+  console.log('copyContentWithQuery_request : ',options);
+  sendRequest(options, cb)
+}
+
 getAllRootOrgs = function (data, cb) {
   var url = configUtil.getConfig('LEARNER_SERVICE_LOCAL_BASE_URL') + configUtil.getConfig('LS_ORG_SEARCH')
   var options = getHttpOptionsForLS(url, data, 'POST', false)
@@ -460,6 +468,14 @@ reserveDialcode = function (contentId, data, headers, cb) {
   var url = configUtil.getConfig('CONTENT_REPO_BASE_URL') + configUtil.getConfig('RESERVE_DIALCODE') + '/' + contentId
   var options = getHttpOptions(url, data, 'POST', false, headers)
   postRequest(options, cb)
+}
+
+readQuestion = function (identifer, query, headers, cb) {
+  var url = configUtil.getConfig('ASSESSMENT_SERVICE_BASE_URL') + '/question/v4/read/'+ identifer;
+  var options = getHttpOptions(url, null, 'GET', false, headers)
+  delete options.headers['Content-Type']
+  options.qs = query
+  sendRequest(options, cb)
 }
 /**
  * This function used to generate api_call log event
@@ -579,10 +595,12 @@ module.exports = {
   learnerServiceCreateForm: learnerServiceCreateForm,
   learnerServiceUpdateForm: learnerServiceUpdateForm,
   copyContent: copyContent,
+  copyContentWithQuery: copyContentWithQuery,
   getAllRootOrgs: getAllRootOrgs,
   pluginsSearch: pluginsSearch,
   getForm: getForm,
   userSearch: userSearch,
   releaseDialcode: releaseDialcode,
-  reserveDialcode: reserveDialcode
+  reserveDialcode: reserveDialcode,
+  readQuestion: readQuestion
 }
