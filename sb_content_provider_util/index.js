@@ -3,6 +3,9 @@ var ekStepFrameworkUtil = require('./sb-ekstep-framework-util')
 
 module.exports = {
   createContent: ekStepContentUtil.createContent,
+  getMeeting: ekStepContentUtil.getMeeting,
+  generateSignature: ekStepContentUtil.generateSignature,
+  createMeeting: ekStepContentUtil.createMeeting,
   compositeSearch: ekStepContentUtil.compositeSearch,
   searchContent: ekStepContentUtil.searchContent,
   updateContent: ekStepContentUtil.updateContent,
